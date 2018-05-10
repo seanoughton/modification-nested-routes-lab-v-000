@@ -36,7 +36,7 @@ class SongsController < ApplicationController
     if params[:artist_id]
       @artist = Artist.find(params[:artist_id])#set the artist
       if @artist.nil? || Artist.exists?(params[:artist]) #make sure the artist exists, is not nil
-        redirect_to artists_path, alert: "Artist not found."
+        redirect_to artists_path
       else #if the artist exists, create the song and add it to the artist collection
         @artist.songs.build(song_params)
         #@song = Song.new(song_params)

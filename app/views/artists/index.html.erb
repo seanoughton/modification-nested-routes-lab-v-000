@@ -4,3 +4,7 @@
     <li><%= link_to artist.name, artist_songs_path(artist) %></li>
   <% end %>
 </ul>
+
+
+links to artists songs path
+expect(page).to have_link(@artist.name, href: artist_songs_path(@artist))

@@ -34,7 +34,22 @@ class SongsController < ApplicationController
 
   def create
     byebug
-    @song = Song.new(song_params)
+    #accepts and sets artist_id
+    if params[:artist_id]
+      @artist = Artist.find(params[:artist_id])#set the artist
+      if @artist.nil? #make sure the artist exists, is not nil
+        redirect_to artists_path, alert: "Artist not found."
+          #if it is nil redirect_to artists_path with alert
+      else
+        @artist.songs.build(song_params)
+        #@song = Song.new(song_params)
+        #@artist.songs << @song
+        @artist.save
+      end
+      #if the artist does create the song and add it to the artist collection
+    else
+      @song = Song.new(song_params)
+    end
 
     if @song.save
       redirect_to @song
@@ -69,6 +84,6 @@ class SongsController < ApplicationController
   private
 
   def song_params
-    params.require(:song).permit(:title, :artist_name)
+    params.require(:song).permit(:title, :artist_name, :artist_id)
   end
 end

@@ -6,7 +6,11 @@ module ArtistsHelper
   def artist_select(song,artist)
     #if there is an artist already, then just show the artist, otherwise provide a list of ArtistsHelper
 
-    
+    if artist
+      artist.name
+    else
+      select_tag "song[artist_id]", options_from_collection_for_select(Artist.all, :id, :name)
+    end
 =begin
     if song.artist.nil?
          select_tag "song[artist_id]", options_from_collection_for_select(Artist.all, :id, :name)
